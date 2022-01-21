@@ -24,7 +24,6 @@ class BoulderingScraper:
             link = bs(link.decode_contents(),'html.parser')
             results.append(link.find('a')['href'])
 
-        print(results)
         return results
 
     def parse_article(self,article: str) -> dict:
@@ -61,22 +60,3 @@ class BoulderingScraper:
             self.already_processed.append(article)
 
         return results
-
-if __name__ == '__main__':
-    scrap = BoulderingScraper(["nowa droga","nową drogę", "nowej drogi", "wytyczył", "przejście", "OS", "powtórzenie",
-                    "powtórzenia", "wyciągi", "wyciąg", '8b', "8c", "9a", "9b"])
-    articles = scrap.get_articles_list()
-    results = []
-
-    for article in articles:
-        result= scrap.parse_article(article)
-
-        if result:
-            results.append(result)
-
-    print(results)
-
-
-
-
-

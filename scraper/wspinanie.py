@@ -60,18 +60,3 @@ class WspinanieScraper:
                 self.already_processed.append(article)
 
         return results
-
-if __name__ == '__main__':
-    parser = WspinanieScraper(
-        ["nowa droga", "nową drogę", "nowej drogi", "wytyczył", "przejście", "OS", "powtórzenie",
-         "powtórzenia", "wyciągi", "wyciąg"], [])
-    results = parser.parse()
-
-    for result in results:
-        print(result['title'])
-
-    print(f'Znaleziono {len(results)} wyników')
-    print(results[0]['body'])
-
-    with open('sample_post.html','w') as html:
-        html.write(str(results[0]['body']))
