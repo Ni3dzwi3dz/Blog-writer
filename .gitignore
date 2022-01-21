@@ -7,7 +7,7 @@ __pycache__/
 
 #Project-specific
 config.py
-blogUpdater/client_secret.json
+client_secret.json
 /blogUpdater/cached_oauth_credentials/
 
 # C extensions
@@ -155,3 +155,4 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+/blogUpdater/client_secret .json

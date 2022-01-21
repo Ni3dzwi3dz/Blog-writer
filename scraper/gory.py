@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as bs
-from urllib3 import exceptions
+
 
 class GoryScraper:
 
@@ -26,14 +26,12 @@ class GoryScraper:
 
     def parse_article(self, article: str) -> dict:
 
-        result = {}
         print(f'Checking {article}')
         try:
             site = requests.get(article)
         except:
             print('Site loading error. Good bye!')
             return {}
-
 
         soup = bs(site.text, 'html.parser')
 
@@ -44,8 +42,10 @@ class GoryScraper:
         if title and header and body:
             for term in self.terms_to_look_for:
                 if term in body.text:
-                    result['title'] = title.text
-                    result['body'] = str(header) + str(body)
+                    result = {'title': title.text, 'content': str(header) + str(body)}
+                    return result
+
+        return {}
 
     def parse(self) -> list:
 
@@ -63,19 +63,3 @@ class GoryScraper:
                 self.already_processed.append(article)
 
         return results
-
-
-if __name__ == '__main__':
-    scrap = GoryScraper(["nowa droga","nową drogę", "nowej drogi", "wytyczył", "przejście", "OS", "powtórzenie",
-                    "powtórzenia", "wyciągi", "wyciąg", '8b', "8c", "9a", "9b", "stylu alpejskim"])
-    articles_list = scrap.get_articles_list()
-    results_list = []
-    print(articles_list)
-
-    for article in articles_list:
-        result = scrap.parse_article(article)
-
-        if result:
-            results_list.append(results_list)
-
-    print(results_list)

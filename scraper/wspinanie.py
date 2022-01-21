@@ -28,7 +28,7 @@ class WspinanieScraper:
     def parse_article(self, article_link: str) -> dict:
         print(f'Parsing {article_link}')
 
-        soup = bs(self.open_site(article_link).text,'html.parser')
+        soup = bs(self.open_site(article_link).text, 'html.parser')
 
         body = soup.find('div', {'class': 'entry'})
         title = soup.find('h1', {'class': 'posttitle'})
@@ -36,9 +36,7 @@ class WspinanieScraper:
         if title and body:
             for term in self.terms_to_look_for:
                 if term in body.text:
-                    result = {}
-                    result['body'] = str(body)
-                    result['title'] = title.text
+                    result = {'content': str(body), 'title': title.text}
                     print(f'Returning {title.text}')
                     return result
         return {}
@@ -49,7 +47,6 @@ class WspinanieScraper:
         results = []
 
         for article in articles:
-
 
             if article not in self.already_processed:
                 result = self.parse_article(article)
